@@ -23,10 +23,12 @@ class BinarySearchTree {
         return value;
     }
     getMedianElement(root) {
-        return root.value;
+        var _a;
+        return (_a = root === null || root === void 0 ? void 0 : root.value) !== null && _a !== void 0 ? _a : 0;
     }
     getAverageValue(root) {
-        return root.value;
+        var _a;
+        return (_a = root === null || root === void 0 ? void 0 : root.value) !== null && _a !== void 0 ? _a : 0;
     }
     isFullBinaryTree(root) {
         if (!root || (!root.left && !root.right)) {

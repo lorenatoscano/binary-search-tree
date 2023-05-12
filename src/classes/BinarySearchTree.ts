@@ -28,12 +28,12 @@ export class BinarySearchTree {
     return value;
   }
 
-  getMedianElement(root: TreeNode): number {
-    return root.value;
+  getMedianElement(root: TreeNode | null): number {
+    return root?.value ?? 0;
   }
 
-  getAverageValue(root: TreeNode): number {
-    return root.value;
+  getAverageValue(root: TreeNode | null): number {
+    return root?.value ?? 0;
   }
 
   isFullBinaryTree(root: TreeNode | null): boolean {
@@ -83,8 +83,12 @@ export class BinarySearchTree {
       }
 
       result += ')';
+    } else {
+      throw new Error('Formato inválido');
     }
 
     return result;
   }
+
+  remove(value: number): void {}
 }

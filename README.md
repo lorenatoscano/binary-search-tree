@@ -89,9 +89,9 @@ Ao executar o projeto, ele lerá os arquivos de entrada e realizará as operaç�
 - [x] Criar classes base
 - [x] Fazer README
 - [x] Implementar printTree
-- [ ] Implementar leitura do arquivo de comandos
-- [ ] Implementar leitura e criação da árvore
-- [ ] Implementar insert
+- [x] Implementar leitura do arquivo de comandos
+- [x] Implementar leitura e criação da árvore
+- [x] Implementar insert
 - [ ] Implementar remove
 - [x] Implementar getHeight
 - [ ] Implementar getElementAtPositionInOrder

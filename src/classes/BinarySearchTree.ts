@@ -3,6 +3,7 @@ import { TreeNode } from './TreeNode';
 export enum TreeFormat {
   LINES = 1,
   PARENTHESES = 2,
+  DEBUG = 3,
 }
 
 export class BinarySearchTree {
@@ -10,6 +11,32 @@ export class BinarySearchTree {
 
   constructor() {
     this.root = null;
+  }
+
+  insert(value: number): void {
+    let parentNode: TreeNode | null = null;
+    let currentNode: TreeNode | null = this.root;
+
+    while (currentNode !== null) {
+      parentNode = currentNode;
+      if (value < currentNode.value) {
+        currentNode.leftCount++;
+        currentNode = currentNode.left;
+      } else {
+        currentNode.rightCount++;
+        currentNode = currentNode.right;
+      }
+    }
+
+    if (parentNode === null) {
+      this.root = new TreeNode(value);
+    } else if (value < parentNode.value) {
+      parentNode.left = new TreeNode(value);
+    } else if (value > parentNode.value) {
+      parentNode.right = new TreeNode(value);
+    } else {
+      return;
+    }
   }
 
   getHeight(node: TreeNode | null): number {
@@ -70,8 +97,20 @@ export class BinarySearchTree {
     }
 
     let result = '';
-
-    if (format === TreeFormat.PARENTHESES) {
+    if (format === TreeFormat.DEBUG) {
+      const queue: TreeNode[] = [];
+      queue.push(root);
+      while (queue.length) {
+        let node = queue.pop();
+        if (node?.left) {
+          queue.push(node.left);
+        }
+        if (node?.right) {
+          queue.push(node.right);
+        }
+        console.log(node);
+      }
+    } else if (format === TreeFormat.PARENTHESES) {
       result = '(' + root.value;
 
       if (root.left) {

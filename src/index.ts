@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs';
-import { BinarySearchTree } from './classes/BinarySearchTree';
+import { BinarySearchTree, TreeFormat } from './classes/BinarySearchTree';
 import { TreeNode } from './classes/TreeNode';
 
 type CommandFunction = (param: string) => void;
@@ -40,7 +40,7 @@ const commandMap: Record<string, CommandFunction> = {
 };
 
 function executeCommandsFromFile() {
-  const data = readFileSync('src/commands.txt', 'utf8');
+  const data = readFileSync('src/input/commands.txt', 'utf8');
 
   const commands = data.split('\n');
 
@@ -58,12 +58,12 @@ function executeCommandsFromFile() {
 }
 
 function buildTree() {
-  tree.root = new TreeNode(5);
-  tree.root.left = new TreeNode(3);
-  tree.root.right = new TreeNode(8);
-  tree.root.right.left = new TreeNode(6);
-  tree.root.right.right = new TreeNode(9);
+  const data = readFileSync('src/input/tree.txt', 'utf8');
+  const values = data.split(' ');
+
+  values.forEach((value) => tree.insert(Number(value)));
 }
 
 buildTree();
 executeCommandsFromFile();
+console.log(`Altura da árvore: ${tree.getHeight(tree.root)}`);

@@ -94,12 +94,12 @@ Ao executar o projeto, ele lerá os arquivos de entrada e realizará as operaç�
 - [x] Implementar insert
 - [ ] Implementar remove
 - [x] Implementar getHeight
-- [ ] Implementar getElementAtPositionInOrder
+- [x] Implementar getElementAtPositionInOrder
 - [ ] Implementar getPositionInOrder
 - [ ] Implementar getMedianElement
 - [ ] Implementar getAverageValue
 - [x] Implementar isFullBinaryTree
 - [ ] Implementar isCompleteBinaryTree
-- [ ] Implementar preOrderTraversal
-- [ ] Implementar inOrderTraversal
-- [ ] Implementar postOrderTraversal
+- [x] Implementar preOrderTraversal
+- [x] Implementar inOrderTraversal
+- [x] Implementar postOrderTraversal

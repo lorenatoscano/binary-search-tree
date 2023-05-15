@@ -14,7 +14,7 @@ const commandMap: Record<string, CommandFunction> = {
   ENESIMO: (param: string) => {
     const index = parseInt(param);
     const element = tree.getElementAtPositionInOrder(index);
-    console.log(element);
+    console.log(`Elemento na posição ${param}: ${element}`);
   },
   POSICAO: (param: string) => {
     const value = parseInt(param);
@@ -67,3 +67,6 @@ function buildTree() {
 buildTree();
 executeCommandsFromFile();
 console.log(`Altura da árvore: ${tree.getHeight(tree.root)}`);
+console.log(`Pré-ordem: ${tree.preOrderTraversal()}`);
+console.log(`Ordem simétrica: ${tree.inOrderTraversal()}`);
+console.log(`Pós-ordem: ${tree.postOrderTraversal()}`);

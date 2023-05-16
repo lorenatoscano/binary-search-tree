@@ -18,6 +18,8 @@ Para executar este projeto, você precisará instalar o **Node.js** e o **Yarn**
    npm -v
    ```
 
+Acesse [aqui](https://efficient-sloth-d85.notion.site/Instalando-o-Node-e-o-NPM-d162e2582d5c48499bc6703526912456) um tutorial mais detalhado de como instalar o Node em diferentes sistemas operacionais.
+
 ### Instalando Yarn
 
 1. Abra o terminal ou prompt de comando e execute o comando:
@@ -70,16 +72,10 @@ Para testar o projeto, siga os passos abaixo:
    yarn install
    ```
 
-4. Compile o projeto:
+4. Execute o projeto:
 
    ```bash
-   yarn build
-   ```
-
-5. Execute o projeto:
-
-   ```bash
-   yarn start
+   yarn dev
    ```
 
 Ao executar o projeto, ele lerá os arquivos de entrada e realizará as operações especificadas. Os resultados serão exibidos no terminal ou prompt de comando.
@@ -95,7 +91,7 @@ Ao executar o projeto, ele lerá os arquivos de entrada e realizará as operaç�
 - [ ] Implementar remove
 - [x] Implementar getHeight
 - [x] Implementar getElementAtPositionInOrder
-- [ ] Implementar getPositionInOrder
+- [x] Implementar getPositionInOrder
 - [ ] Implementar getMedianElement
 - [ ] Implementar getAverageValue
 - [x] Implementar isFullBinaryTree

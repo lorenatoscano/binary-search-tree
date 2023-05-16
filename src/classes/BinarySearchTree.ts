@@ -47,7 +47,8 @@ export class BinarySearchTree {
     return 1 + Math.max(this.getHeight(node.left), this.getHeight(node.right));
   }
 
-  /* Complexidade: O(h), onde h é a altura da árvore binária de busca
+  /*
+   * Complexidade: O(h), onde h é a altura da árvore binária de busca
    * Portanto, a complexidade assintótica do método varia entre O(log n) e O(n), dependendo do balanceamento da árvore.
    */
   getElementAtPositionInOrder(index: number): number | null {
@@ -70,6 +71,10 @@ export class BinarySearchTree {
     }
   }
 
+  /*
+   * Complexidade: O(h), onde h é a altura da árvore binária de busca
+   * Portanto, a complexidade assintótica do método varia entre O(log n) e O(n), dependendo do balanceamento da árvore.
+   */
   getPositionInOrder(value: number): number | null {
     return this._getPositionInOrder(this.root, value, 0);
   }

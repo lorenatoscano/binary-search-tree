@@ -27,11 +27,20 @@ const commandMap: Record<string, CommandFunction> = {
   },
   CHEIA: () => {
     const isFull = tree.isFullBinaryTree(tree.root);
-    console.log(isFull);
+    console.log(isFull ? 'A árvore é cheia' : 'A árvore não é cheia');
   },
   COMPLETA: () => {
     const isComplete = tree.isCompleteBinaryTree(tree.root);
-    console.log(isComplete);
+    console.log(isComplete ? 'A árvore é completa' : 'A árvore não é completa');
+  },
+  INSIRA: (param: string) => {
+    const value = parseInt(param);
+    try {
+      tree.insert(value);
+      console.log(`${value} adicionado`);
+    } catch (error) {
+      console.log((error as Error).message);
+    }
   },
   REMOVA: (param: string) => {
     const value = parseInt(param);

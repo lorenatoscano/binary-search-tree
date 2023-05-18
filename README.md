@@ -4,7 +4,7 @@ Este projeto implementa uma árvore binária de busca (ABB) aumentada em **Node.
 
 ## Requisitos
 
-Para executar este projeto, você precisará instalar o **Node.js** e o **Yarn**. Siga as instruções abaixo para instalar as dependências necessárias:
+Para executar este projeto, você precisará instalar o **Node.js**. Siga as instruções abaixo para instalar as dependências necessárias:
 
 ### Instalando Node.js
 
@@ -19,20 +19,6 @@ Para executar este projeto, você precisará instalar o **Node.js** e o **Yarn**
    ```
 
 Acesse [aqui](https://efficient-sloth-d85.notion.site/Instalando-o-Node-e-o-NPM-d162e2582d5c48499bc6703526912456) um tutorial mais detalhado de como instalar o Node em diferentes sistemas operacionais.
-
-### Instalando Yarn
-
-1. Abra o terminal ou prompt de comando e execute o comando:
-
-   ```bash
-   npm install -g yarn
-   ```
-
-2. Verifique se a instalação do Yarn foi bem sucedida com o comando a seguir:
-
-   ```bash
-   yarn -v
-   ```
 
 ## Operações suportadas
 
@@ -69,13 +55,13 @@ Para testar o projeto, siga os passos abaixo:
 3. Instale as dependências do projeto:
 
    ```bash
-   yarn install
+   npm install
    ```
 
 4. Execute o projeto:
 
    ```bash
-   yarn dev
+   npm run dev
    ```
 
 Ao executar o projeto, ele lerá os arquivos de entrada e realizará as operações especificadas. Os resultados serão exibidos no terminal ou prompt de comando.
@@ -99,3 +85,4 @@ Ao executar o projeto, ele lerá os arquivos de entrada e realizará as operaç�
 - [x] Implementar preOrderTraversal
 - [x] Implementar inOrderTraversal
 - [x] Implementar postOrderTraversal
+- [x] Implementar contains

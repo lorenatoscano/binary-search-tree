@@ -78,8 +78,8 @@ Ao executar o projeto, ele lerá os arquivos de entrada e realizará as operaç�
 - [x] Implementar getHeight
 - [x] Implementar getElementAtPositionInOrder
 - [x] Implementar getPositionInOrder
-- [ ] Implementar getMedianElement
-- [ ] Implementar getAverageValue
+- [x] Implementar getMedianElement
+- [x] Implementar getAverageValue
 - [x] Implementar isFullBinaryTree
 - [ ] Implementar isCompleteBinaryTree
 - [x] Implementar preOrderTraversal

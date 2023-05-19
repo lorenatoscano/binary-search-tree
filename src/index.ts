@@ -25,6 +25,11 @@ const commandMap: Record<string, CommandFunction> = {
     const median = tree.getMedianElement();
     console.log(`Mediana: ${median}`);
   },
+  MEDIA: (param: string) => {
+    const value = parseInt(param);
+    const median = tree.getAverageValue(value);
+    console.log(`Media: ${median}`);
+  },
   CHEIA: () => {
     const isFull = tree.isFullBinaryTree(tree.root);
     console.log(isFull ? 'A árvore é cheia' : 'A árvore não é cheia');

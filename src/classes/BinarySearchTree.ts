@@ -61,6 +61,10 @@ export class BinarySearchTree {
 
   remove(value: number): void {}
 
+  // private _remove(node: TreeNode | null, value: number): TreeNode {
+
+  // }
+
   getHeight(node: TreeNode | null): number {
     if (!node) {
       return 0;
@@ -142,6 +146,29 @@ export class BinarySearchTree {
     }
   }
 
+  getNodeByValue(value: number): TreeNode {
+    const node = this._getNodeByValue(this.root, value);
+
+    if (node) {
+      return node;
+    }
+    throw new Error(`O elemento ${value} não está na árvore`);
+  }
+
+  private _getNodeByValue(node: TreeNode | null, value: number): TreeNode | null {
+    if (!node) {
+      return null;
+    }
+
+    if (value < node.value) {
+      return this._getNodeByValue(node.left, value);
+    } else if (value > node.value) {
+      return this._getNodeByValue(node.right, value);
+    } else {
+      return node;
+    }
+  }
+
   getMedianElement(): number {
     if (!this.root) {
       throw new Error('A árvore está vazia');
@@ -152,22 +179,30 @@ export class BinarySearchTree {
     }
 
     const totalNodes = this.root.leftCount + this.root.rightCount + 1;
-    const isEven = totalNodes % 2 === 0;
+    const medianIndex = Math.floor(totalNodes / 2) + (totalNodes % 2);
 
-    if (isEven) {
-      if (this.root.leftCount < this.root.rightCount) {
-        return this.getMinimum(this.root.right); // Falha para o caso 5 3 8 6 9 1
-      } else {
-        return this.getMaximum(this.root.left);
-      }
-    } else {
-      const medianIndex = Math.floor(totalNodes / 2) + 1;
-      return this.getElementAtPositionInOrder(medianIndex);
-    }
+    return this.getElementAtPositionInOrder(medianIndex);
   }
 
-  getAverageValue(root: TreeNode | null): number {
-    return root?.value ?? 0;
+  getSumOfValues(node: TreeNode | null): number {
+    if (!node) {
+      return 0;
+    }
+
+    return node.value + this.getSumOfValues(node.left) + this.getSumOfValues(node.right);
+  }
+
+  getAverageValue(rootValue: number): number {
+    const root = this.getNodeByValue(rootValue);
+
+    if (!root) {
+      throw new Error('A árvore está vazia');
+    }
+
+    const totalNodes = root.leftCount + root.rightCount + 1;
+    const sum = this.getSumOfValues(root);
+
+    return sum / totalNodes;
   }
 
   isFullBinaryTree(root: TreeNode | null): boolean {

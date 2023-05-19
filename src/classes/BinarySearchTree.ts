@@ -59,11 +59,36 @@ export class BinarySearchTree {
     }
   }
 
-  remove(value: number): void {}
+  remove(value: number): void {
+    this._remove(this.root, value);
+  }
 
-  // private _remove(node: TreeNode | null, value: number): TreeNode {
+  private _remove(node: TreeNode | null, value: number): TreeNode | null {
+    if (!node) {
+      throw new Error(`${value} não está na árvore, não pode ser removido`);
+    }
 
-  // }
+    if (value < node.value) {
+      node.leftCount--;
+      node.left = this._remove(node.left, value);
+    } else if (value > node.value) {
+      node.rightCount--;
+      node.right = this._remove(node.right, value);
+    } else {
+      if (!node.left) {
+        return node.right;
+      } else if (!node.right) {
+        return node.left;
+      } else {
+        const substitute = this.getMinimum(node.right);
+        node.value = substitute;
+        node.rightCount--;
+        node.right = this._remove(node.right, substitute);
+      }
+    }
+
+    return node;
+  }
 
   getHeight(node: TreeNode | null): number {
     if (!node) {
@@ -77,35 +102,31 @@ export class BinarySearchTree {
     while (node && node.left) {
       node = node.left;
     }
-    if (node) {
-      return node.value;
+    if (!node) {
+      throw new Error('A árvore está vazia');
     }
 
-    throw new Error('A árvore está vazia');
+    return node.value;
   }
 
   getMaximum(node: TreeNode | null): number {
     while (node && node.right) {
       node = node.right;
     }
-    if (node) {
-      return node.value;
+    if (!node) {
+      throw new Error('A árvore está vazia');
     }
 
-    throw new Error('A árvore está vazia');
+    return node.value;
   }
 
-  /*
-   * Complexidade: O(h), onde h é a altura da árvore binária de busca
-   * Portanto, a complexidade assintótica do método varia entre O(log n) e O(n), dependendo do balanceamento da árvore.
-   */
   getElementAtPositionInOrder(index: number): number {
     const element = this._getElementAtPositionInOrder(this.root, index);
-    if (element) {
-      return element;
-    } else {
+    if (!element) {
       throw new Error(`Não foi possível obter o elemento na posição ${index}`);
     }
+
+    return element;
   }
 
   private _getElementAtPositionInOrder(node: TreeNode | null, index: number): number | null {
@@ -124,12 +145,13 @@ export class BinarySearchTree {
     }
   }
 
-  /*
-   * Complexidade: O(h), onde h é a altura da árvore binária de busca
-   * Portanto, a complexidade assintótica do método varia entre O(log n) e O(n), dependendo do balanceamento da árvore.
-   */
-  getPositionInOrder(value: number): number | null {
-    return this._getPositionInOrder(this.root, value, 0);
+  getPositionInOrder(value: number): number {
+    const index = this._getPositionInOrder(this.root, value, 0);
+
+    if (!index) {
+      throw new Error(`O elemento ${value} não está na árvore`);
+    }
+    return index;
   }
 
   private _getPositionInOrder(node: TreeNode | null, value: number, count: number): number | null {
@@ -149,10 +171,11 @@ export class BinarySearchTree {
   getNodeByValue(value: number): TreeNode {
     const node = this._getNodeByValue(this.root, value);
 
-    if (node) {
-      return node;
+    if (!node) {
+      throw new Error(`O elemento ${value} não está na árvore`);
     }
-    throw new Error(`O elemento ${value} não está na árvore`);
+
+    return node;
   }
 
   private _getNodeByValue(node: TreeNode | null, value: number): TreeNode | null {
@@ -201,6 +224,10 @@ export class BinarySearchTree {
 
     const totalNodes = root.leftCount + root.rightCount + 1;
     const sum = this.getSumOfValues(root);
+    console.log(`DEBUG - Subarvore do ${rootValue}: `);
+    console.log(root);
+    console.log('DEBUG - Total: ', totalNodes);
+    console.log('DEBUG - Soma: ', sum);
 
     return sum / totalNodes;
   }
@@ -216,6 +243,7 @@ export class BinarySearchTree {
     return this.isFullBinaryTree(root.left) && this.isFullBinaryTree(root.right);
   }
 
+  // @TODO
   isCompleteBinaryTree(root: TreeNode | null): boolean {
     return false;
   }
@@ -328,16 +356,3 @@ export class BinarySearchTree {
     return result;
   }
 }
-
-// const queue: TreeNode[] = [];
-// queue.push(root);
-// while (queue.length) {
-//   let node = queue.pop();
-//   if (node?.left) {
-//     queue.push(node.left);
-//   }
-//   if (node?.right) {
-//     queue.push(node.right);
-//   }
-//   console.log(node);
-// }

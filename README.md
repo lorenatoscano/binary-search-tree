@@ -6,8 +6,6 @@ Este projeto implementa uma árvore binária de busca (ABB) aumentada em **Node.
 
 Para executar este projeto, você precisará instalar o **Node.js**. Siga as instruções abaixo para instalar as dependências necessárias:
 
-### Instalando Node.js
-
 1. Acesse o site oficial do Node.js em https://nodejs.org/.
 2. Faça o download da versão LTS (Long Term Support) do Node.js.
 3. Execute o instalador e siga as instruções na tela.
@@ -24,21 +22,51 @@ Acesse [aqui](https://efficient-sloth-d85.notion.site/Instalando-o-Node-e-o-NPM-
 
 A ABB aumentada suporta as seguintes operações:
 
-- getHeight
-- getElementAtPositionInOrder
-- getPositionInOrder
-- getMedianElement
-- getAverageValue
-- isFullBinaryTree
-- isCompleteBinaryTree
-- preOrderTraversal
-- inOrderTraversal
-- postOrderTraversal
-- printTree
+- Que alteram a estrutura da árvore:
+
+  - Inserir
+  - Remover
+
+- Que acessam elementos da árvore:
+
+  - Buscar por um valor
+  - Obter um elemento pela sua posição na ordem simétrica
+  - Obter a posição de um elemento na ordem simétrica pelo seu valor
+
+- Que verificam informações sobre a árvore:
+
+  - Se é cheia
+  - Se é completa
+  - Mediana
+  - Média dos valores dos nós
+
+- Que percorrem a árvore:
+
+  - Pré-ordem
+  - Ordem simétrica
+  - Pós-ordem
+
+- Que imprimem a árvore
+
+  - No formato com linhas:
+
+  ```
+   5----------------------------------
+         3----------------------------
+         8----------------------------
+               6----------------------
+               9----------------------
+  ```
+
+  - No formato com parênteses:
+
+  ```
+  (5 (3) (8 (6) (9)))
+  ```
 
 ## Como testar
 
-Para testar o projeto, siga os passos abaixo:
+Para rodar o projeto, siga os passos abaixo:
 
 1. Clone o repositório para o seu computador:
 
@@ -74,7 +102,8 @@ Ao executar o projeto, ele lerá os arquivos de entrada e realizará as operaç�
 - [x] Implementar leitura do arquivo de comandos
 - [x] Implementar leitura e criação da árvore
 - [x] Implementar insert
-- [ ] Implementar remove
+- [x] Implementar remove
+- [x] Implementar contains
 - [x] Implementar getHeight
 - [x] Implementar getElementAtPositionInOrder
 - [x] Implementar getPositionInOrder
@@ -85,4 +114,3 @@ Ao executar o projeto, ele lerá os arquivos de entrada e realizará as operaç�
 - [x] Implementar preOrderTraversal
 - [x] Implementar inOrderTraversal
 - [x] Implementar postOrderTraversal
-- [x] Implementar contains

@@ -89,4 +89,3 @@ function buildTree() {
 
 buildTree();
 executeCommandsFromFile();
-console.log(`Ordem simétrica: ${tree.inOrderTraversal()}`);

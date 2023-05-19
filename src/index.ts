@@ -9,7 +9,7 @@ const tree = new BinarySearchTree();
 const commandMap: Record<string, CommandFunction> = {
   IMPRIMA: (param: string) => {
     const format = parseInt(param);
-    console.log(tree.printTree(tree.root, format));
+    console.log(tree.printTree(format));
   },
   ENESIMO: (param: string) => {
     const index = parseInt(param);
@@ -22,8 +22,8 @@ const commandMap: Record<string, CommandFunction> = {
     console.log(index);
   },
   MEDIANA: () => {
-    const median = tree.getMedianElement(tree.root);
-    console.log(median);
+    const median = tree.getMedianElement();
+    console.log(`Mediana: ${median}`);
   },
   CHEIA: () => {
     const isFull = tree.isFullBinaryTree(tree.root);
@@ -35,16 +35,21 @@ const commandMap: Record<string, CommandFunction> = {
   },
   INSIRA: (param: string) => {
     const value = parseInt(param);
-    try {
-      tree.insert(value);
-      console.log(`${value} adicionado`);
-    } catch (error) {
-      console.log((error as Error).message);
-    }
+    tree.insert(value);
+    console.log(`${value} adicionado`);
   },
   REMOVA: (param: string) => {
     const value = parseInt(param);
     tree.remove(value);
+    console.log(`${value} removido`);
+  },
+  BUSCAR: (param: string) => {
+    const value = parseInt(param);
+    const isFound = tree.contains(value);
+    console.log(isFound ? 'Chave encontrada' : 'Não foi possível encontrar');
+  },
+  PREORDEM: () => {
+    console.log(tree.preOrderTraversal());
   },
 };
 
@@ -59,7 +64,11 @@ function executeCommandsFromFile() {
     const mappedFunction = commandMap[method];
 
     if (mappedFunction) {
-      mappedFunction(param);
+      try {
+        mappedFunction(param);
+      } catch (error) {
+        console.warn((error as Error).message);
+      }
     } else {
       console.warn(`Comando inválido: ${command}`);
     }
@@ -75,7 +84,4 @@ function buildTree() {
 
 buildTree();
 executeCommandsFromFile();
-console.log(`Altura da árvore: ${tree.getHeight(tree.root)}`);
-console.log(`Pré-ordem: ${tree.preOrderTraversal()}`);
 console.log(`Ordem simétrica: ${tree.inOrderTraversal()}`);
-console.log(`Pós-ordem: ${tree.postOrderTraversal()}`);

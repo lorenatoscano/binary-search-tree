@@ -59,6 +59,8 @@ export class BinarySearchTree {
     }
   }
 
+  remove(value: number): void {}
+
   getHeight(node: TreeNode | null): number {
     if (!node) {
       return 0;
@@ -67,12 +69,39 @@ export class BinarySearchTree {
     return 1 + Math.max(this.getHeight(node.left), this.getHeight(node.right));
   }
 
+  getMinimum(node: TreeNode | null): number {
+    while (node && node.left) {
+      node = node.left;
+    }
+    if (node) {
+      return node.value;
+    }
+
+    throw new Error('A árvore está vazia');
+  }
+
+  getMaximum(node: TreeNode | null): number {
+    while (node && node.right) {
+      node = node.right;
+    }
+    if (node) {
+      return node.value;
+    }
+
+    throw new Error('A árvore está vazia');
+  }
+
   /*
    * Complexidade: O(h), onde h é a altura da árvore binária de busca
    * Portanto, a complexidade assintótica do método varia entre O(log n) e O(n), dependendo do balanceamento da árvore.
    */
-  getElementAtPositionInOrder(index: number): number | null {
-    return this._getElementAtPositionInOrder(this.root, index);
+  getElementAtPositionInOrder(index: number): number {
+    const element = this._getElementAtPositionInOrder(this.root, index);
+    if (element) {
+      return element;
+    } else {
+      throw new Error(`Não foi possível obter o elemento na posição ${index}`);
+    }
   }
 
   private _getElementAtPositionInOrder(node: TreeNode | null, index: number): number | null {
@@ -113,8 +142,28 @@ export class BinarySearchTree {
     }
   }
 
-  getMedianElement(root: TreeNode | null): number {
-    return root?.value ?? 0;
+  getMedianElement(): number {
+    if (!this.root) {
+      throw new Error('A árvore está vazia');
+    }
+
+    if (this.root.leftCount === this.root.rightCount) {
+      return this.root.value;
+    }
+
+    const totalNodes = this.root.leftCount + this.root.rightCount + 1;
+    const isEven = totalNodes % 2 === 0;
+
+    if (isEven) {
+      if (this.root.leftCount < this.root.rightCount) {
+        return this.getMinimum(this.root.right); // Falha para o caso 5 3 8 6 9 1
+      } else {
+        return this.getMaximum(this.root.left);
+      }
+    } else {
+      const medianIndex = Math.floor(totalNodes / 2) + 1;
+      return this.getElementAtPositionInOrder(medianIndex);
+    }
   }
 
   getAverageValue(root: TreeNode | null): number {
@@ -196,26 +245,13 @@ export class BinarySearchTree {
     return result;
   }
 
-  // const queue: TreeNode[] = [];
-  // queue.push(root);
-  // while (queue.length) {
-  //   let node = queue.pop();
-  //   if (node?.left) {
-  //     queue.push(node.left);
-  //   }
-  //   if (node?.right) {
-  //     queue.push(node.right);
-  //   }
-  //   console.log(node);
-  // }
-
-  printTree(root: TreeNode | null, format: TreeFormat): string {
+  printTree(format: TreeFormat): string {
     if (format === TreeFormat.LINES) {
       return this.printWithLines(this.root, 0);
     } else if (format === TreeFormat.PARENTHESES) {
       return this.printWithParentheses(this.root);
     } else if (format === TreeFormat.DEBUG) {
-      console.log(root);
+      console.log(this.root);
       return '';
     } else {
       throw new Error('Formato inválido');
@@ -256,6 +292,17 @@ export class BinarySearchTree {
 
     return result;
   }
-
-  remove(value: number): void {}
 }
+
+// const queue: TreeNode[] = [];
+// queue.push(root);
+// while (queue.length) {
+//   let node = queue.pop();
+//   if (node?.left) {
+//     queue.push(node.left);
+//   }
+//   if (node?.right) {
+//     queue.push(node.right);
+//   }
+//   console.log(node);
+// }

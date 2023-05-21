@@ -1,43 +1,11 @@
 import { readFileSync } from 'fs';
-import { BinarySearchTree, TreeFormat } from './classes/BinarySearchTree';
-import { TreeNode } from './classes/TreeNode';
+import { BinarySearchTree } from './classes/BinarySearchTree';
 
 type CommandFunction = (param: string) => void;
 
 const tree = new BinarySearchTree();
 
 const commandMap: Record<string, CommandFunction> = {
-  IMPRIMA: (param: string) => {
-    const format = parseInt(param);
-    console.log(tree.printTree(format));
-  },
-  ENESIMO: (param: string) => {
-    const index = parseInt(param);
-    const element = tree.getElementAtPositionInOrder(index);
-    console.log(`Elemento na posição ${param}: ${element}`);
-  },
-  POSICAO: (param: string) => {
-    const value = parseInt(param);
-    const index = tree.getPositionInOrder(value);
-    console.log(index);
-  },
-  MEDIANA: () => {
-    const median = tree.getMedianElement();
-    console.log(`Mediana: ${median}`);
-  },
-  MEDIA: (param: string) => {
-    const value = parseInt(param);
-    const median = tree.getAverageValue(value);
-    console.log(`Media: ${median}`);
-  },
-  CHEIA: () => {
-    const isFull = tree.isFullBinaryTree(tree.root);
-    console.log(isFull ? 'A árvore é cheia' : 'A árvore não é cheia');
-  },
-  COMPLETA: () => {
-    const isComplete = tree.isCompleteBinaryTree(tree.root);
-    console.log(isComplete ? 'A árvore é completa' : 'A árvore não é completa');
-  },
   INSIRA: (param: string) => {
     const value = parseInt(param);
     tree.insert(value);
@@ -53,8 +21,45 @@ const commandMap: Record<string, CommandFunction> = {
     const isFound = tree.contains(value);
     console.log(isFound ? 'Chave encontrada' : 'Não foi possível encontrar');
   },
+  ENESIMO: (param: string) => {
+    const index = parseInt(param);
+    const element = tree.getElementAtPositionInOrder(index);
+    console.log(element);
+  },
+  POSICAO: (param: string) => {
+    const value = parseInt(param);
+    const index = tree.getPositionInOrder(value);
+    console.log(index);
+  },
+  CHEIA: () => {
+    const isFull = tree.isFullBinaryTree();
+    console.log(isFull ? 'A árvore é cheia' : 'A árvore não é cheia');
+  },
+  COMPLETA: () => {
+    const isComplete = tree.isCompleteBinaryTree();
+    console.log(isComplete ? 'A árvore é completa' : 'A árvore não é completa');
+  },
+  MEDIANA: () => {
+    const median = tree.getMedianElement();
+    console.log(median);
+  },
+  MEDIA: (param: string) => {
+    const value = parseInt(param);
+    const median = tree.getAverageValue(value);
+    console.log(median);
+  },
   PREORDEM: () => {
     console.log(tree.preOrderTraversal());
+  },
+  ORDEMSIMETRICA: () => {
+    console.log(tree.inOrderTraversal());
+  },
+  POSORDEM: () => {
+    console.log(tree.postOrderTraversal());
+  },
+  IMPRIMA: (param: string) => {
+    const format = parseInt(param);
+    console.log(tree.printTree(format));
   },
 };
 

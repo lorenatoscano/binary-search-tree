@@ -93,24 +93,3 @@ Para rodar o projeto, siga os passos abaixo:
    ```
 
 Ao executar o projeto, ele lerá os arquivos de entrada e realizará as operações especificadas. Os resultados serão exibidos no terminal ou prompt de comando.
-
-### Checklist
-
-- [x] Criar classes base
-- [x] Fazer README
-- [x] Implementar printTree
-- [x] Implementar leitura do arquivo de comandos
-- [x] Implementar leitura e criação da árvore
-- [x] Implementar insert
-- [x] Implementar remove
-- [x] Implementar contains
-- [x] Implementar getHeight
-- [x] Implementar getElementAtPositionInOrder
-- [x] Implementar getPositionInOrder
-- [x] Implementar getMedianElement
-- [x] Implementar getAverageValue
-- [x] Implementar isFullBinaryTree
-- [ ] Implementar isCompleteBinaryTree
-- [x] Implementar preOrderTraversal
-- [x] Implementar inOrderTraversal
-- [x] Implementar postOrderTraversal

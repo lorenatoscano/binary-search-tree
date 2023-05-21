@@ -3,7 +3,6 @@ import { TreeNode } from './TreeNode';
 export enum TreeFormat {
   LINES = 1,
   PARENTHESES = 2,
-  DEBUG = 3,
 }
 
 export class BinarySearchTree {
@@ -11,26 +10,6 @@ export class BinarySearchTree {
 
   constructor() {
     this.root = null;
-  }
-
-  contains(value: number): boolean {
-    return this._contains(this.root, value);
-  }
-
-  private _contains(node: TreeNode | null, value: number): boolean {
-    if (!node) {
-      return false;
-    }
-
-    if (node.value === value) {
-      return true;
-    }
-
-    if (node.value < value) {
-      return this._contains(node.left, value);
-    } else {
-      return this._contains(node.right, value);
-    }
   }
 
   insert(value: number): void {
@@ -88,6 +67,26 @@ export class BinarySearchTree {
     }
 
     return node;
+  }
+
+  contains(value: number): boolean {
+    return this._contains(this.root, value);
+  }
+
+  private _contains(node: TreeNode | null, value: number): boolean {
+    if (!node) {
+      return false;
+    }
+
+    if (node.value === value) {
+      return true;
+    }
+
+    if (node.value < value) {
+      return this._contains(node.left, value);
+    } else {
+      return this._contains(node.right, value);
+    }
   }
 
   getHeight(node: TreeNode | null): number {
@@ -168,7 +167,7 @@ export class BinarySearchTree {
     }
   }
 
-  getNodeByValue(value: number): TreeNode {
+  private getNodeByValue(value: number): TreeNode {
     const node = this._getNodeByValue(this.root, value);
 
     if (!node) {
@@ -190,6 +189,41 @@ export class BinarySearchTree {
     } else {
       return node;
     }
+  }
+
+  isFullBinaryTree() {
+    return this._isFullBinaryTree(this.root);
+  }
+
+  private _isFullBinaryTree(node: TreeNode | null): boolean {
+    if (!node || (!node.left && !node.right)) {
+      return true;
+    }
+    if (!node.left || !node.right) {
+      return false;
+    }
+
+    return this._isFullBinaryTree(node.left) && this._isFullBinaryTree(node.right);
+  }
+
+  isCompleteBinaryTree(): boolean {
+    const height = this.getHeight(this.root);
+    return this._isCompleteBinaryTree(this.root, 1, height);
+  }
+
+  private _isCompleteBinaryTree(node: TreeNode | null, currentLevel: number, height: number): boolean {
+    if (!node) {
+      return true;
+    }
+
+    if (!node.left || !node.right) {
+      return currentLevel === height || currentLevel === height - 1;
+    }
+
+    return (
+      this._isCompleteBinaryTree(node.left, currentLevel + 1, height) &&
+      this._isCompleteBinaryTree(node.right, currentLevel + 1, height)
+    );
   }
 
   getMedianElement(): number {
@@ -224,28 +258,8 @@ export class BinarySearchTree {
 
     const totalNodes = root.leftCount + root.rightCount + 1;
     const sum = this.getSumOfValues(root);
-    console.log(`DEBUG - Subarvore do ${rootValue}: `);
-    console.log(root);
-    console.log('DEBUG - Total: ', totalNodes);
-    console.log('DEBUG - Soma: ', sum);
 
     return sum / totalNodes;
-  }
-
-  isFullBinaryTree(root: TreeNode | null): boolean {
-    if (!root || (!root.left && !root.right)) {
-      return true;
-    }
-    if (!root.left || !root.right) {
-      return false;
-    }
-
-    return this.isFullBinaryTree(root.left) && this.isFullBinaryTree(root.right);
-  }
-
-  // @TODO
-  isCompleteBinaryTree(root: TreeNode | null): boolean {
-    return false;
   }
 
   preOrderTraversal(): string {
@@ -313,9 +327,6 @@ export class BinarySearchTree {
       return this.printWithLines(this.root, 0);
     } else if (format === TreeFormat.PARENTHESES) {
       return this.printWithParentheses(this.root);
-    } else if (format === TreeFormat.DEBUG) {
-      console.log(this.root);
-      return '';
     } else {
       throw new Error('Formato inválido');
     }

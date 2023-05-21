@@ -241,7 +241,7 @@ export class BinarySearchTree {
     return this.getElementAtPositionInOrder(medianIndex);
   }
 
-  getSumOfValues(node: TreeNode | null): number {
+  private getSumOfValues(node: TreeNode | null): number {
     if (!node) {
       return 0;
     }
@@ -356,9 +356,8 @@ export class BinarySearchTree {
 
     if (node) {
       const indentation = '\t'.repeat(level);
-      const line = '-'.repeat(35 - level * 7);
 
-      result += indentation + node.value + line + '\n';
+      result += indentation + String(node.value).padEnd(34 - level * 8, '-') + '\n';
 
       result += this.printWithLines(node.left, level + 1);
       result += this.printWithLines(node.right, level + 1);

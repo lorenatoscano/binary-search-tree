@@ -19,10 +19,8 @@ export class BinarySearchTree {
     while (currentNode !== null) {
       parentNode = currentNode;
       if (value < currentNode.value) {
-        currentNode.leftCount++;
         currentNode = currentNode.left;
       } else {
-        currentNode.rightCount++;
         currentNode = currentNode.right;
       }
     }
@@ -31,15 +29,17 @@ export class BinarySearchTree {
       this.root = new TreeNode(value);
     } else if (value < parentNode.value) {
       parentNode.left = new TreeNode(value);
+      this.updateCountersOnInsert(value);
     } else if (value > parentNode.value) {
       parentNode.right = new TreeNode(value);
+      this.updateCountersOnInsert(value);
     } else {
       throw new Error(`${value} já está na árvore, não pode ser inserido`);
     }
   }
 
   remove(value: number): void {
-    this._remove(this.root, value);
+    this.root = this._remove(this.root, value);
   }
 
   private _remove(node: TreeNode | null, value: number): TreeNode | null {
@@ -48,25 +48,41 @@ export class BinarySearchTree {
     }
 
     if (value < node.value) {
-      node.leftCount--;
       node.left = this._remove(node.left, value);
+      node.leftCount--;
     } else if (value > node.value) {
-      node.rightCount--;
       node.right = this._remove(node.right, value);
+      node.rightCount--;
     } else {
       if (!node.left) {
-        return node.right;
+        node = node.right;
       } else if (!node.right) {
-        return node.left;
+        node = node.left;
       } else {
         const substitute = this.getMinimum(node.right);
         node.value = substitute;
-        node.rightCount--;
         node.right = this._remove(node.right, substitute);
+        node.rightCount--;
       }
     }
 
     return node;
+  }
+
+  private updateCountersOnInsert(value: number): void {
+    let node = this.root;
+
+    while (node !== null) {
+      if (value < node.value) {
+        node.leftCount++;
+        node = node.left;
+      } else if (value > node.value) {
+        node.rightCount++;
+        node = node.right;
+      } else {
+        break;
+      }
+    }
   }
 
   contains(value: number): boolean {

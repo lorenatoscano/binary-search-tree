@@ -93,5 +93,4 @@ function buildTree() {
 }
 
 buildTree();
-tree.printTree(2);
 executeCommandsFromFile();

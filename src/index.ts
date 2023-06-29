@@ -1,5 +1,7 @@
 import { readFileSync } from 'fs';
-import { BinarySearchTree } from './classes/BinarySearchTree';
+import { BinarySearchTree, TreeFormat } from './classes/BinarySearchTree';
+import { AVLTree } from './classes/AVLTree';
+import { TreeNode } from './classes/TreeNode';
 
 type CommandFunction = (param: string) => void;
 
@@ -92,5 +94,26 @@ function buildTree() {
   values.forEach((value) => tree.insert(Number(value)));
 }
 
-buildTree();
-executeCommandsFromFile();
+// buildTree();
+// executeCommandsFromFile();
+
+function testAVLTree(): void {
+  const avlTree = new AVLTree();
+
+  const valuesToInsert = [20, 18, 16, 15, 2, 17, 19];
+
+  for (const value of valuesToInsert) {
+    avlTree.insert(value);
+    console.log(`Inserted value: ${value}`);
+    console.log(`Is tree balanced? ${avlTree.isBalanced(avlTree.root)}`);
+  }
+
+  const value = 18;
+  avlTree.remove(value);
+  console.log(`Remove value: ${value}`);
+  console.log(`Is tree balanced? ${avlTree.isBalanced(avlTree.root)}`);
+
+  console.log(avlTree.printTree(TreeFormat.LINES));
+}
+
+testAVLTree();

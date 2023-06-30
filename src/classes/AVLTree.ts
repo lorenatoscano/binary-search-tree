@@ -9,55 +9,82 @@ export class AVLTree extends BinarySearchTree {
   insert(value: number): void {
     super.insert(value);
 
-    this.root = this.balance(this.root, value);
-  }
-
-  balance(node: TreeNode | null, value: number): TreeNode | null {
-    if (!node) {
-      return new TreeNode(value);
-    }
-
-    const balanceFactor = this.getBalanceFactor(node);
-
-    // Caso esquerda-esquerda
-    if (balanceFactor > 1 && value < node.left!.value) {
-      return this.rotateRight(node);
-    }
-
-    // Caso direita-direita
-    if (balanceFactor < -1 && value > node.right!.value) {
-      return this.rotateLeft(node);
-    }
-
-    // Caso esquerda-direita
-    if (balanceFactor > 1 && value > node.left!.value) {
-      node.left = this.rotateLeft(node.left);
-      return this.rotateRight(node);
-    }
-
-    // Caso direita-esquerda
-    if (balanceFactor < -1 && value < node.right!.value) {
-      node.right = this.rotateRight(node.right);
-      return this.rotateLeft(node);
-    }
-
-    return node;
+    this.root = this.balanceTree(this.root);
   }
 
   remove(value: number): void {
-    super.remove(value);
-
-    this.root = this.balance(this.root, value);
+    this.root = this.removeAndBalance(this.root, value);
   }
 
   getBalanceFactor(node: TreeNode | null): number {
     if (!node) {
       return 0;
     }
-    return this.getHeight(node.left) - this.getHeight(node.right);
+    return this.getHeight(node.right) - this.getHeight(node.left);
   }
 
-  rotateLeft(node: TreeNode | null): TreeNode | null {
+  private balanceTree(node: TreeNode | null): TreeNode | null {
+    if (!node) {
+      return null;
+    }
+
+    const balanceFactor = this.getBalanceFactor(node);
+
+    if (balanceFactor > 1) {
+      if (this.getBalanceFactor(node.right) < 0) {
+        node.right = this.rotateRight(node.right);
+        return this.rotateLeft(node);
+      } else {
+        return this.rotateLeft(node);
+      }
+    }
+    if (balanceFactor < -1) {
+      if (this.getBalanceFactor(node.left) > 0) {
+        node.left = this.rotateLeft(node.left);
+        return this.rotateRight(node);
+      } else {
+        return this.rotateRight(node);
+      }
+    }
+
+    // Balanceamento dos filhos
+    node.left = this.balanceTree(node.left);
+    node.right = this.balanceTree(node.right);
+
+    return node;
+  }
+
+  private removeAndBalance = (node: TreeNode | null, value: number): TreeNode | null => {
+    if (!node) {
+      throw new Error(`${value} não está na árvore, não pode ser removido`);
+    }
+
+    if (value < node.value) {
+      node.left = this.removeAndBalance(node.left, value);
+    } else if (value > node.value) {
+      node.right = this.removeAndBalance(node.right, value);
+    } else {
+      // Nó com um filho à direita
+      if (!node.left) {
+        node = node.right;
+      }
+      // Nó com um filho à esquerda
+      else if (!node.right) {
+        node = node.left;
+      }
+      // Nó com dois filhos
+      else {
+        const minValue = this.getMinimum(node.right);
+        node.value = minValue;
+        node.right = this.removeAndBalance(node.right, minValue);
+      }
+    }
+
+    // Chame o método balanceTree nos ancestrais do nó removido
+    return this.balanceTree(node);
+  };
+
+  private rotateLeft(node: TreeNode | null): TreeNode | null {
     if (node === null) {
       return node;
     }
@@ -74,7 +101,7 @@ export class AVLTree extends BinarySearchTree {
     return newRoot;
   }
 
-  rotateRight(node: TreeNode | null): TreeNode | null {
+  private rotateRight(node: TreeNode | null): TreeNode | null {
     if (node === null) {
       return node;
     }

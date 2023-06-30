@@ -1,11 +1,9 @@
 import { readFileSync } from 'fs';
-import { BinarySearchTree, TreeFormat } from './classes/BinarySearchTree';
 import { AVLTree } from './classes/AVLTree';
-import { TreeNode } from './classes/TreeNode';
 
 type CommandFunction = (param: string) => void;
 
-const tree = new BinarySearchTree();
+const tree = new AVLTree();
 
 const commandMap: Record<string, CommandFunction> = {
   INSIRA: (param: string) => {
@@ -20,7 +18,7 @@ const commandMap: Record<string, CommandFunction> = {
   },
   BUSCAR: (param: string) => {
     const value = parseInt(param);
-    const isFound = tree.contains(value);
+    const isFound = tree.search(value);
     console.log(isFound ? 'Chave encontrada' : 'Não foi possível encontrar');
   },
   ENESIMO: (param: string) => {
@@ -40,15 +38,6 @@ const commandMap: Record<string, CommandFunction> = {
   COMPLETA: () => {
     const isComplete = tree.isCompleteBinaryTree();
     console.log(isComplete ? 'A árvore é completa' : 'A árvore não é completa');
-  },
-  MEDIANA: () => {
-    const median = tree.getMedianElement();
-    console.log(median);
-  },
-  MEDIA: (param: string) => {
-    const value = parseInt(param);
-    const median = tree.getAverageValue(value);
-    console.log(median);
   },
   PREORDEM: () => {
     console.log(tree.preOrderTraversal());
@@ -94,26 +83,5 @@ function buildTree() {
   values.forEach((value) => tree.insert(Number(value)));
 }
 
-// buildTree();
-// executeCommandsFromFile();
-
-function testAVLTree(): void {
-  const avlTree = new AVLTree();
-
-  const valuesToInsert = [20, 18, 16, 15, 2, 17, 19];
-
-  for (const value of valuesToInsert) {
-    avlTree.insert(value);
-    console.log(`Inserted value: ${value}`);
-    console.log(`Is tree balanced? ${avlTree.isBalanced(avlTree.root)}`);
-  }
-
-  const value = 18;
-  avlTree.remove(value);
-  console.log(`Remove value: ${value}`);
-  console.log(`Is tree balanced? ${avlTree.isBalanced(avlTree.root)}`);
-
-  console.log(avlTree.printTree(TreeFormat.LINES));
-}
-
-testAVLTree();
+buildTree();
+executeCommandsFromFile();

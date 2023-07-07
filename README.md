@@ -1,6 +1,6 @@
 # Árvore Binária de Busca Aumentada
 
-Este projeto implementa uma árvore binária de busca (ABB) aumentada em **Node.js** com **TypeScript**. A ABB armazena valores inteiros e suporta operações convencionais de busca, inserção e remoção, além de outras operações específicas descritas abaixo.
+Este projeto implementa uma árvore AVL em **Node.js** com **TypeScript**. A árvore AVL armazena valores inteiros e suporta operações convencionais de busca, inserção e remoção, além de outras operações específicas descritas abaixo. Durante as operações de inserção e exclusão, a árvore é reconstruída para manter o balanceamento.
 
 ## Requisitos
 
@@ -20,35 +20,33 @@ Acesse [aqui](https://efficient-sloth-d85.notion.site/Instalando-o-Node-e-o-NPM-
 
 ## Operações suportadas
 
-A ABB aumentada suporta as seguintes operações:
+A árvore AVL suporta as seguintes operações:
 
 - Que alteram a estrutura da árvore:
 
-  - Inserir
-  - Remover
+  - Inserir: `INSIRA 10`
+  - Remover: `REMOVA 10`
 
 - Que acessam elementos da árvore:
 
-  - Buscar por um valor
-  - Obter um elemento pela sua posição na ordem simétrica
-  - Obter a posição de um elemento na ordem simétrica pelo seu valor
+  - Buscar por um valor: `BUSCAR 10`
 
 - Que verificam informações sobre a árvore:
 
-  - Se é cheia
-  - Se é completa
-  - Mediana
-  - Média dos valores dos nós
+  - Se está balanceada: `BALANCEADA`
+  - Se é cheia: `CHEIA`
+  - Se é completa: `COMPLETA`
 
 - Que percorrem a árvore:
 
-  - Pré-ordem
-  - Ordem simétrica
-  - Pós-ordem
+  - Pré-ordem: `PREORDEM`
+  - Ordem simétrica: `ORDEMSIMETRICA`
+  - Pós-ordem: `POSORDEM`
 
 - Que imprimem a árvore
 
   - No formato com linhas:
+    `IMPRIMA 1`
 
   ```
   5---------------------------------
@@ -58,7 +56,7 @@ A ABB aumentada suporta as seguintes operações:
                   9-----------------
   ```
 
-  - No formato com parênteses:
+  - No formato com parênteses: `IMPRIMA 2`
 
   ```
   (5 (3) (8 (6) (9)))
@@ -68,28 +66,18 @@ A ABB aumentada suporta as seguintes operações:
 
 Para rodar o projeto, siga os passos abaixo:
 
-1. Clone o repositório para o seu computador:
-
-   ```bash
-   git clone https://github.com/lorenatoscano/binary-search-tree
-   ```
-
-2. Navegue até a pasta do projeto:
-
-   ```bash
-   cd binary-search-tree
-   ```
-
-3. Instale as dependências do projeto:
+1. Instale as dependências do projeto:
 
    ```bash
    npm install
    ```
 
-4. Execute o projeto:
+2. Execute o projeto:
 
    ```bash
    npm run dev
    ```
 
 Ao executar o projeto, ele lerá os arquivos de entrada e realizará as operações especificadas. Os resultados serão exibidos no terminal ou prompt de comando.
+
+> Para experimentar o programa com diferentes valores na árvore, modifique o arquivo `input/tree.txt` e ajuste o arquivo `input/commands.txt` para personalizar as operações que serão executadas. Após realizar as alterações, rode o projeto novamente para verificar os resultados.

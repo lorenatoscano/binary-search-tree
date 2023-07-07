@@ -21,16 +21,6 @@ const commandMap: Record<string, CommandFunction> = {
     const isFound = tree.search(value);
     console.log(isFound ? 'Chave encontrada' : 'Não foi possível encontrar');
   },
-  ENESIMO: (param: string) => {
-    const index = parseInt(param);
-    const element = tree.getElementAtPositionInOrder(index);
-    console.log(element);
-  },
-  POSICAO: (param: string) => {
-    const value = parseInt(param);
-    const index = tree.getPositionInOrder(value);
-    console.log(index);
-  },
   CHEIA: () => {
     const isFull = tree.isFullBinaryTree();
     console.log(isFull ? 'A árvore é cheia' : 'A árvore não é cheia');
@@ -38,6 +28,10 @@ const commandMap: Record<string, CommandFunction> = {
   COMPLETA: () => {
     const isComplete = tree.isCompleteBinaryTree();
     console.log(isComplete ? 'A árvore é completa' : 'A árvore não é completa');
+  },
+  BALANCEADA: () => {
+    const isBalanced = tree.isBalanced(tree.root);
+    console.log(isBalanced ? 'A árvore está balanceada' : 'A árvore não está balanceada');
   },
   PREORDEM: () => {
     console.log(tree.preOrderTraversal());

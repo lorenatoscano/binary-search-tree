@@ -80,7 +80,7 @@ export class AVLTree extends BinarySearchTree {
       }
     }
 
-    // Chame o método balanceTree nos ancestrais do nó removido
+    // Chama o método balanceTree nos ancestrais do nó removido
     return this.balanceTree(node);
   };
 

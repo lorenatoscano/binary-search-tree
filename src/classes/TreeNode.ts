@@ -4,6 +4,7 @@ export class TreeNode {
   right: TreeNode | null;
   leftCount: number;
   rightCount: number;
+  height: number;
 
   constructor(value: number) {
     this.value = value;
@@ -11,5 +12,6 @@ export class TreeNode {
     this.right = null;
     this.leftCount = 0;
     this.rightCount = 0;
+    this.height = 1;
   }
 }

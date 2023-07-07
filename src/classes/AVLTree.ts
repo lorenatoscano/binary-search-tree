@@ -7,9 +7,7 @@ export class AVLTree extends BinarySearchTree {
   }
 
   insert(value: number): void {
-    super.insert(value);
-
-    this.root = this.balanceTree(this.root);
+    this.root = this.insertAndBalance(this.root, value);
   }
 
   remove(value: number): void {
@@ -20,7 +18,11 @@ export class AVLTree extends BinarySearchTree {
     if (!node) {
       return 0;
     }
-    return this.getHeight(node.right) - this.getHeight(node.left);
+    return (node.right?.height || 0) - (node.left?.height || 0);
+  }
+
+  private updateHeight(node: TreeNode): void {
+    node.height = Math.max(node.left?.height || 0, node.right?.height || 0) + 1;
   }
 
   private balanceTree(node: TreeNode | null): TreeNode | null {
@@ -51,8 +53,27 @@ export class AVLTree extends BinarySearchTree {
     node.left = this.balanceTree(node.left);
     node.right = this.balanceTree(node.right);
 
+    this.updateHeight(node);
+
     return node;
   }
+
+  private insertAndBalance = (node: TreeNode | null, value: number): TreeNode | null => {
+    if (node === null) {
+      return new TreeNode(value);
+    }
+
+    if (value < node.value) {
+      node.left = this.insertAndBalance(node.left, value);
+    } else if (value > node.value) {
+      node.right = this.insertAndBalance(node.right, value);
+    } else {
+      throw new Error(`${value} já está na árvore, não pode ser inserido`);
+    }
+
+    this.updateHeight(node);
+    return this.balanceTree(node);
+  };
 
   private removeAndBalance = (node: TreeNode | null, value: number): TreeNode | null => {
     if (!node) {
@@ -81,7 +102,12 @@ export class AVLTree extends BinarySearchTree {
     }
 
     // Chama o método balanceTree nos ancestrais do nó removido
-    return this.balanceTree(node);
+    const balancedNode = this.balanceTree(node);
+    if (balancedNode) {
+      this.updateHeight(balancedNode);
+      return balancedNode;
+    }
+    return null;
   };
 
   private rotateLeft(node: TreeNode | null): TreeNode | null {
@@ -97,6 +123,9 @@ export class AVLTree extends BinarySearchTree {
 
     node.right = newRoot.left;
     newRoot.left = node;
+
+    this.updateHeight(node);
+    this.updateHeight(newRoot);
 
     return newRoot;
   }
@@ -114,6 +143,9 @@ export class AVLTree extends BinarySearchTree {
 
     node.left = newRoot.right;
     newRoot.right = node;
+
+    this.updateHeight(node);
+    this.updateHeight(newRoot);
 
     return newRoot;
   }

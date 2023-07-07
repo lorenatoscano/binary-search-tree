@@ -1,4 +1,4 @@
-# Árvore Binária de Busca Aumentada
+# Árvore AVL
 
 Este projeto implementa uma árvore AVL em **Node.js** com **TypeScript**. A árvore AVL armazena valores inteiros e suporta operações convencionais de busca, inserção e remoção, além de outras operações específicas descritas abaixo. Durante as operações de inserção e exclusão, a árvore é reconstruída para manter o balanceamento.
 
